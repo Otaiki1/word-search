@@ -17,7 +17,7 @@ body {
 
 body {
   color: rbg(--foreground-rgb);
-  background: url("../public/images/Gradient.svg");
+  background: url("../public/images/Gradient.png");
   background-repeat: no-repeat;
   background-size: cover;
   /* animation: animate 20s cubic-bezier(1, 0.333, 0, 0.667) infinite; */
