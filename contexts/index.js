@@ -16,6 +16,8 @@ import { useStateContext } from "./AuthContext";
 import dotenv from "dotenv";
 dotenv.config();
 
+import Swal from "sweetalert2";
+
 export const Gameplay = createContext();
 
 export const GameplayProvider = (props) => {
@@ -67,7 +69,13 @@ export const GameplayProvider = (props) => {
       await tx.wait(); // Await the transaction to be mined
       router.push("/game");
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
+
       console.log(error.message);
     }
   }
@@ -90,7 +98,12 @@ export const GameplayProvider = (props) => {
       await tx.wait(); // Await the transaction to be mined
       router.push("/game");
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
     }
   }
 
@@ -111,6 +124,12 @@ export const GameplayProvider = (props) => {
       setUserStake(tx.toString()); // Convert the BigNumber to a string
     } catch (error) {
       // alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
     }
   }
   async function callGetUserBalance() {
@@ -130,6 +149,12 @@ export const GameplayProvider = (props) => {
       setUserBalance(tx.toString()); // Convert the BigNumber to a string
     } catch (error) {
       // alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
     }
   }
 
@@ -149,7 +174,12 @@ export const GameplayProvider = (props) => {
       const tx = await contract.s_totalSupply();
       setTotalStake(tx.toString()); // Convert the BigNumber to a string
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
     }
   }
 
@@ -179,7 +209,12 @@ export const GameplayProvider = (props) => {
         }
       }
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
       console.log(error.message);
     }
   }
@@ -211,7 +246,12 @@ export const GameplayProvider = (props) => {
 
       // router.push("/game");
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
       console.log(error.message);
     }
   }
@@ -279,7 +319,12 @@ export const GameplayProvider = (props) => {
       if (isWon) console.log("COnfirmed Win");
       if (!isWon) console.log("Win not confirmed");
     } catch (error) {
-      alert(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: error.message,
+      });
       console.log(error.message);
     }
   }
