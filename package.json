@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.6.1",
     "@next/font": "13.1.6",
     "@nomiclabs/hardhat-waffle": "^2.0.5",
+    "@openzeppelin/contracts": "^4.9.2",
     "dotenv": "^16.1.4",
     "ethers": "^5.7.2",
     "firebase": "^9.17.2",

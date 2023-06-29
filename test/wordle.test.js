@@ -5,17 +5,46 @@ const { expect } = require("chai");
 const PERCENT = 1;
 const REWARD_AMOUNT = 1;
 const gameSecretKey = ethers.utils.formatBytes32String("gamesecretkey"); //won secret key
-const word = "aword";
+const word = ["a", "w", "o", "r", "d"];
 
-const encryptWord = (word, secretKey) => {
-  const encodedWord = ethers.utils.toUtf8Bytes(word);
-  const encodedSecretKey = ethers.utils.arrayify(secretKey);
-  const saltedWord = ethers.utils.concat([encodedWord, encodedSecretKey]);
-  const encryptedWord = ethers.utils.keccak256(saltedWord);
-  return encryptedWord;
+const encryptLetters = (words, secretKey) => {
+  const encryptedLetters = [];
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+
+    for (let j = 0; j < word.length; j++) {
+      const letter = word[j];
+      const encodedLetter = ethers.utils.toUtf8Bytes(letter);
+      const encodedSecretKey = ethers.utils.arrayify(secretKey);
+      const saltedLetter = ethers.utils.concat([
+        encodedLetter,
+        encodedSecretKey,
+      ]);
+      const encryptedLetter = ethers.utils.keccak256(saltedLetter);
+      encryptedLetters.push(encryptedLetter);
+    }
+  }
+
+  return encryptedLetters;
 };
 
-const codedWord = encryptWord(word, gameSecretKey);
+const allElementsAreTrue = (array1, array2) => {
+  for (let i = 0; i < array1.length; i++) {
+    if (array1[i] != array2[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const codedWord = encryptLetters(word, gameSecretKey);
+
+const BASE_FEE = ethers.utils.parseEther("1");
+const GAS_PRICE_LINK = 1000000000;
+const KEYHASH =
+  "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc";
+const VRF_SUB_FUND_AMOUNT = ethers.utils.parseEther("100");
 
 describe("Full Wordle Test", function () {
   //deploy staking token
@@ -62,7 +91,49 @@ describe("Full Wordle Test", function () {
       send95PercentTo.hash
     );
 
-    return { gameContract, stakingContract, stakingToken, owner, otherAccount };
+    //optional : deployssss , deploy mock coordinator
+
+    const VrfCoordinatorV2Mock = await ethers.getContractFactory(
+      "VRFCoordinatorV2Mock"
+    );
+    const vrfCoordinatorV2Mock = await VrfCoordinatorV2Mock.deploy(
+      BASE_FEE,
+      GAS_PRICE_LINK
+    );
+    //CREATE SUBSCRIPTION HERE
+    const transactionResponse = await vrfCoordinatorV2Mock.createSubscription();
+    const transactionReceipt = await transactionResponse.wait(1);
+    const subscriptionId = transactionReceipt.events[0].args.subId;
+
+    console.log("SuBSCription ID is __---", subscriptionId);
+
+    await vrfCoordinatorV2Mock.fundSubscription(
+      subscriptionId,
+      VRF_SUB_FUND_AMOUNT
+    );
+
+    const VRFD20Contract = await ethers.getContractFactory("VRFD20");
+    const vrfd20Contract = await VRFD20Contract.deploy(
+      subscriptionId,
+      gameSecretKey,
+      vrfCoordinatorV2Mock.address,
+      KEYHASH
+    );
+
+    await vrfCoordinatorV2Mock.addConsumer(
+      subscriptionId,
+      vrfd20Contract.address
+    );
+
+    return {
+      gameContract,
+      stakingContract,
+      stakingToken,
+      owner,
+      otherAccount,
+      vrfd20Contract,
+      vrfCoordinatorV2Mock,
+    };
   }
 
   describe("Deployment", function () {
@@ -180,7 +251,9 @@ describe("Full Wordle Test", function () {
 
       const [userCodedWord, userTimeOfPlay] =
         await gameContract.fetchPlayerInfo();
-      expect(userCodedWord).to.eq(codedWord);
+      const isAllTrue = allElementsAreTrue(userCodedWord, codedWord);
+      expect(isAllTrue).to.eq(true);
+
       console.log(userTimeOfPlay);
     });
 
@@ -199,12 +272,39 @@ describe("Full Wordle Test", function () {
       const { gameContract } = await loadFixture(deployAllContracts);
 
       await gameContract.startGame(codedWord);
-      const tx = await gameContract.playedGame(codedWord, "bword");
+      const tx = await gameContract.playedGame(codedWord, [
+        "b",
+        "w",
+        "o",
+        "r",
+        "d",
+      ]);
       const txReceipt = await tx.wait(1);
       const isWon = txReceipt.events[txReceipt.events.length - 1].args.isWon;
       expect(isWon).to.eq(false);
       const winnersArray = await gameContract.fetchWinners();
       expect(winnersArray.length).to.eq(0);
+    });
+  });
+
+  describe("Testing Random Number", async () => {
+    it("should request a random word and get a hash", async () => {
+      const { owner, vrfd20Contract, vrfCoordinatorV2Mock } = await loadFixture(
+        deployAllContracts
+      );
+      const rollTx = await vrfd20Contract.rollDice(owner.address);
+
+      const txReceipt = await rollTx.wait(1);
+      const txId = txReceipt.events[txReceipt.events.length - 1].args.requestId;
+      // simulate callback from the oracle network
+      await vrfCoordinatorV2Mock.fulfillRandomWords(
+        txId,
+        vrfd20Contract.address
+      );
+
+      const playerWord = await vrfd20Contract.word(owner.address);
+
+      console.log("players word is ____-------", playerWord);
     });
   });
 
