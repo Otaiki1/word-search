@@ -1,5 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
+
 require("dotenv").config();
+const AURORA_PRIVATE_KEY = process.env.AURORA_PRIVATE_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -7,6 +9,10 @@ module.exports = {
   networks: {
     hardhat: {
       chainId: 31337,
+    },
+    testnet_aurora: {
+      url: "https://testnet.aurora.dev",
+      accounts: [`0x${AURORA_PRIVATE_KEY}`],
     },
   },
 };

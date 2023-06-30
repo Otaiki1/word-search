@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "./interfaces/IDIARandomOracle.sol";
 import "./EncryptionContract.sol";
 
-contract DiceGame is EncryptionContract {
+contract FetchRandomWords is EncryptionContract {
     address public randomOracle;
 
     // map rollers to requestIds
@@ -67,11 +67,6 @@ contract DiceGame is EncryptionContract {
         emit DiceRolled(latestRoundId, msg.sender);
     }
 
-    /**
-     * @notice Get the word assigned to the player once the address has rolled
-     * @param player address
-     * @return word as a string
-     */
     function word() public view returns (bytes32[5] memory) {
         require(s_results[msg.sender] != 0, "Dice not rolled");
         string memory userWord = getWord(s_results[msg.sender]);
