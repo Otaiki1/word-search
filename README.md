@@ -2,37 +2,36 @@
 ## Inspiration
 _The inspiration behind this projects was to deliver an amazing game play with a very unique popular game, with amazing rewards to keep players glued while playing. so you earn while you play but in much better way._
 ## What it does
-_Token Wordle is a unique puzzle game built on blockchain technology, allowing for exciting gameplay mechanics and rewards. Similar to Wordle, players can earn tokens for each game they play and win, and these tokens can be staked for a set period of time to earn even more tokens as they play._
+_WordSearch is a unique puzzle game built on blockchain technology, allowing for exciting gameplay mechanics and rewards. Similar to Wordle, players can earn tokens for each game they play and win, and these tokens can be staked for a set period of time to earn even more tokens as they play._
 
 _As players progress through the game, they have the chance to earn an NFT (non-fungible token) by achieving specific milestones such as solving challenging puzzles or reaching high scores. NFTs are digital assets that can be bought, sold, and traded on blockchain platforms, and can serve as collectibles or as proof of achievement._
 
-_In addition to earning tokens and NFTs, players can also use a decentralized exchange (DEX) built into Token Wordle to swap tokens with other players. This feature makes the game more social, as players can connect with each other and trade tokens to increase their holdings._
+_In addition to earning tokens and NFTs, players can also use a decentralized exchange (DEX) built into WordSearch to swap tokens with other players. This feature makes the game more social, as players can connect with each other and trade tokens to increase their holdings._
 
-_To encourage friendly competition, Token Wordle features a leaderboard that displays the top players based on their token holdings and high scores. Players can see their own ranking on the leaderboard and strive to climb the ranks by playing more games, winning more tokens, and staking them for longer periods of time._
+_To encourage friendly competition, WordSearch features a leaderboard that displays the top players based on their token holdings and high scores. Players can see their own ranking on the leaderboard and strive to climb the ranks by playing more games, winning more tokens, and staking them for longer periods of time._
 
-_Overall, Token Wordle provides a fun and engaging puzzle experience while also allowing players to earn tokens and NFTs with real value. The staking feature encourages players to hold onto their tokens and potentially earn even more, while the leaderboard adds an element of competition to the game. The ability to swap tokens with other players also makes Token Wordle a more social game, enabling players to trade tokens and build a community._
+_Overall, WordSearch provides a fun and engaging puzzle experience while also allowing players to earn tokens and NFTs with real value. The staking feature encourages players to hold onto their tokens and potentially earn even more, while the leaderboard adds an element of competition to the game. The ability to swap tokens with other players also makes WordSearch a more social game, enabling players to trade tokens and build a community._
 ## How we built it
-Smart contract was written for staking fee and rewards, while chainlink Vrf was used for random words for unique gamplay and guesses with secure random words. the ui was built with next-js 13 for smooth routing and speed. **check out link** [link](https://token-wordle.vercel.app/) and **Github link** [link](https://github.com/joeephwild/token-wordle).
+Smart contract was written for staking fee and rewards, while DIA Random oracle was used for random words for unique gamplay and guesses with secure random words. the ui was built with next-js 13 for smooth routing and speed. **check out link** [link](https://word-search.vercel.app/) and **Github link** [link](https://github.com/Otaiki1/word-search).
+<!-- 
+STAKING TOKEN HAS BEEN DEPLOYED TO ________ 0xfbF1E570d7d8AE46fBD2da9cb66427Db55638771
+STAKING CONTRACT HAS BEEN DEPLOYED TO ________ 0xd5148FA685322D8105c927Eb6940A2b4aDec6D79
+GAME CONTRACT HAS BEEN DEPLOYED TO ________ 0x4752d7864041872aeB1F6315216183b84411660B
+SUCCESSFULLY SENT 95 PERCENT , TXN HASH IS _____ 0x00f5941b7edfaac2a776cea942aabdf01051e900f5e6cd3994827f5e101a03e6
+FetchRandomWords was successfully deployed to _______ 0x6Ea2F4B47ffFaAE5D465C5Ac5F081f48c9271F36 -->
 
- HAS BEEN DEPLOYED TO ________ 
-STAKING CONTRACT HAS BEEN DEPLOYED TO ________ 
-GAME CONTRACT HAS BEEN DEPLOYED TO ________ 
-SUCCESSFULLY SENT 95 PERCENT , TXN HASH IS _____ 0xa9d032e5e21752dfffb02558a5f9bb4b035ffd61c98c47a9b6b80c857772c73d
-vrfd20Contract was successfully deployed to _______ 
 
 ## Contracts
-**STAKING TOKEN**[0x431b2b148EE63DFdc7D0e73df389A7865EccBfe5](https://mumbai.polygonscan.com/address/0x431b2b148EE63DFdc7D0e73df389A7865EccBfe5)
+**STAKING TOKEN**[0x431b2b148EE63DFdc7D0e73df389A7865EccBfe5](https://explorer.testnet.aurora.dev/address/0xfbF1E570d7d8AE46fBD2da9cb66427Db55638771)
 
-**Game Contract**[0x6039efb5080fE3f652F7ACE3C81313f3F00BB987](https://mumbai.polygonscan.com/address/0x6039efb5080fE3f652F7ACE3C81313f3F00BB987)
+**Game Contract**[0x4752d7864041872aeB1F6315216183b84411660B](https://explorer.testnet.aurora.dev/address/0x4752d7864041872aeB1F6315216183b84411660B)
 
-**Staking Contract**[0x46f6391f0625f33a10a63875bBb6577B952411c2](https://mumbai.polygonscan.com/address/0x46f6391f0625f33a10a63875bBb6577B952411c2)
-**Randomizer Contract**[0x0A3478083407Fa46bA842d066b7a4A80a710dd43](https://mumbai.polygonscan.com/address/0x0A3478083407Fa46bA842d066b7a4A80a710dd43)
+**Staking Contract**[0xd5148FA685322D8105c927Eb6940A2b4aDec6D79](https://explorer.testnet.aurora.dev/address/0xd5148FA685322D8105c927Eb6940A2b4aDec6D79)
+**Randomizer Contract**[0x6Ea2F4B47ffFaAE5D465C5Ac5F081f48c9271F36](https://explorer.testnet.aurora.dev/address/0x6Ea2F4B47ffFaAE5D465C5Ac5F081f48c9271F36)
 
-## What's next for Token Wordle
+## What's next for WordSearch
 we hope to keep building after the hackathon by adding multiple games to the build
-check out contract code at https:///github.com/Otaiki1/token-wordle-contracts
 
-[FigmaLink](https://www.figma.com/file/bBQImW8v2Gd0ttCiZPhK4Y/Token-Wordle?node-id=0%3A1)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 ## Getting Started
