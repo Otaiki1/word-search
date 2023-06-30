@@ -294,7 +294,7 @@ export const GameplayProvider = (props) => {
 
   const encryptLetter = (letter) => {
     const encodedLetter = ethers.utils.toUtf8Bytes(letter);
-    const secretKey = ethers.utils.formatBytes32String("t0k3nW0rd13");
+    const secretKey = ethers.utils.formatBytes32String("W0RDS34CRH");
     const encodedSecretKey = ethers.utils.arrayify(secretKey);
     const saltedLetter = ethers.utils.concat([encodedLetter, encodedSecretKey]);
     const encryptedLetter = ethers.utils.keccak256(saltedLetter);
