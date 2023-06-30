@@ -5,6 +5,7 @@ import Keyboard from "./Keyboard";
 import WordBox from "./WordBox";
 import { useGameContext } from "../../contexts";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 export default function GameBoard() {
   const [wordArray, setWordArray] = useState([]);
@@ -38,7 +39,7 @@ export default function GameBoard() {
         if (isAllCorrect) {
           setWordArray(modWordArray);
           // await playedGame(wordArray);
-          alert("won, click submit to submit");
+          Swal.fire("won, click submit to submit");
         } else {
           setWordArray(modWordArray);
         }
@@ -53,11 +54,11 @@ export default function GameBoard() {
     } else {
       // add letter to current word box
       if (!isStarted) {
-        alert("Step 1 , game starts");
+        Swal.fire("Step 1 , game starts");
         await initGame();
-        alert("Step 1 , fetching word...");
+        Swal.fire("Step 1 , fetching word...");
         await fetchUserWord();
-        alert("Step3 , fetched word");
+        Swal.fire("Step3 , fetched word");
         await startTimer();
       }
       if (wordArray.length <= 5) {

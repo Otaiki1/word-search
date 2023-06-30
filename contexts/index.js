@@ -199,15 +199,23 @@ export const GameplayProvider = (props) => {
         signer
       );
       if (!hasRolledDie) {
-        const tx = await FetchRandomWordsContract.rollDice(address);
+        const tx0 = await FetchRandomWordsContract.fetchDailyWord();
+        await tx0.wait(); // Await the transaction to be mined
+        const tx = await FetchRandomWordsContract.rollDice();
         await tx.wait(); // Await the transaction to be mined
         // Wait for 1 minutes
         await new Promise((resolve) => setTimeout(resolve, 60000));
-        alert("Your die has rolled successfully, you can proceed to game play");
+        Swal.fire(
+          "Your die has rolled successfully, you can proceed to game play"
+        );
         setHasRolledDie(true);
         router.push("/game");
       } else {
-        alert("you have rolled already");
+        Swal.fire({
+          icon: "warning",
+          title: "Warning",
+          text: "you have rolled already",
+        });
         if (hasRolledDie) {
           router.push("/game");
         }
@@ -246,7 +254,7 @@ export const GameplayProvider = (props) => {
       //   alert("wait ended , game can begin");
       // }
 
-      const playersWord = await FetchRandomWordsContract.word(address);
+      const playersWord = await FetchRandomWordsContract.word();
       console.log("Players Word is ____", playersWord);
       setUserWordArray(playersWord);
       //begin game play with game contract
