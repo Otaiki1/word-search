@@ -2,63 +2,18 @@
   {
     "inputs": [
       {
-        "internalType": "uint64",
-        "name": "subscriptionId",
-        "type": "uint64"
+        "internalType": "address",
+        "name": "oracle",
+        "type": "address"
       },
       {
         "internalType": "bytes32",
         "name": "_secretKey",
         "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "vrfCoordinator",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "_keyHash",
-        "type": "bytes32"
       }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "have",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "want",
-        "type": "address"
-      }
-    ],
-    "name": "OnlyCoordinatorCanFulfill",
-    "type": "error"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "result",
-        "type": "uint256"
-      }
-    ],
-    "name": "DiceLanded",
-    "type": "event"
   },
   {
     "anonymous": false,
@@ -118,6 +73,32 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "fetchDailyWord",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_round",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRandomValue",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32[5]",
@@ -161,50 +142,27 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "randomOracle",
+    "outputs": [
       {
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "randomWords",
-        "type": "uint256[]"
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
-    "name": "rawFulfillRandomWords",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rollDice",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "roller",
-        "type": "address"
-      }
-    ],
-    "name": "rollDice",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "requestId",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "player",
-        "type": "address"
-      }
-    ],
+    "inputs": [],
     "name": "word",
     "outputs": [
       {
