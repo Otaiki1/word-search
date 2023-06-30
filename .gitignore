@@ -42,3 +42,7 @@ typechain-types
 cache
 artifacts
 
+#personal
+contracts/Products.sol
+scripts/deploy-products.js
+

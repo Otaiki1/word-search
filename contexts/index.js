@@ -5,8 +5,8 @@ import {
   gameabi,
   stakingContract,
   stakingabit,
-  vrfdContract,
-  vrfdabi,
+  fetchRandomWordsContract,
+  fetchRandomWordsabi,
   stakingTokens,
   stakingTokenabi,
 } from "../constants";
@@ -193,12 +193,16 @@ export const GameplayProvider = (props) => {
       const signer = provider.getSigner();
 
       // Create a contract instance
-      const VrfdContract = new ethers.Contract(vrfdContract, vrfdabi, signer);
+      const FetchRandomWordsContract = new ethers.Contract(
+        fetchRandomWordsContract,
+        fetchRandomWordsabi,
+        signer
+      );
       if (!hasRolledDie) {
-        const tx = await VrfdContract.rollDice(address);
+        const tx = await FetchRandomWordsContract.rollDice(address);
         await tx.wait(); // Await the transaction to be mined
-        // Wait for 5 minutes
-        await new Promise((resolve) => setTimeout(resolve, 300000));
+        // Wait for 1 minutes
+        await new Promise((resolve) => setTimeout(resolve, 60000));
         alert("Your die has rolled successfully, you can proceed to game play");
         setHasRolledDie(true);
         router.push("/game");
@@ -227,7 +231,11 @@ export const GameplayProvider = (props) => {
       const signer = provider.getSigner();
 
       // Create a contract instance
-      const VrfdContract = new ethers.Contract(vrfdContract, vrfdabi, signer);
+      const FetchRandomWordsContract = new ethers.Contract(
+        fetchRandomWordsContract,
+        fetchRandomWordsabi,
+        signer
+      );
       const GameContract = new ethers.Contract(gameContract, gameabi, signer);
       // if (!hasRolledDie) {
       //   const tx = await VrfdContract.rollDice(address);
@@ -238,7 +246,7 @@ export const GameplayProvider = (props) => {
       //   alert("wait ended , game can begin");
       // }
 
-      const playersWord = await VrfdContract.word(address);
+      const playersWord = await FetchRandomWordsContract.word(address);
       console.log("Players Word is ____", playersWord);
       setUserWordArray(playersWord);
       //begin game play with game contract
@@ -334,9 +342,11 @@ export const GameplayProvider = (props) => {
   };
 
   useEffect(() => {
-    callGetStakedToken();
-    callTotalStakedToken();
-    callGetUserBalance();
+    if (address) {
+      callGetStakedToken();
+      callTotalStakedToken();
+      callGetUserBalance();
+    }
   }, [address]);
 
   return (
